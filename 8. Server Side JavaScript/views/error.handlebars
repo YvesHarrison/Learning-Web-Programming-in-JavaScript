@@ -1,0 +1,18 @@
+
+		<article class="error">
+  			<h1>You meet an error!</h1>
+  			<p class = code>{{code}}</p>
+  			<p class = description>{{description}}</p>
+  			<p class="link"><a href="http://localhost:3000">Try another palindrome</a></p>
+  			{{#if hasErrors}}
+  				<ul class="error-list">
+    				{{#each errors}}
+    					<li>
+      						{{this}}
+    					</li>
+    				{{/each}}
+  				</ul>
+  			{{/if}}
+		</article>
+
+

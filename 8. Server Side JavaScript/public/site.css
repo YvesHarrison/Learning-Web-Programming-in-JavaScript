@@ -1,0 +1,86 @@
+main{
+	max-width: 35%;
+ 	margin:auto;
+ 	text-align: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+label {
+  	font-weight: bold;
+}
+
+a:link {
+	color:#FF0000;
+}   
+
+a:visited {
+	color:#00FF00;
+} 
+
+a:hover {
+	color:#FF00FF;
+}   
+
+a:active {
+	color:#0000FF;
+}
+
+.link{
+	text-align: center;
+}
+
+.code{
+	text-align: center;
+}
+
+.description{
+	text-align: center;
+}
+
+.error{
+	text-align: center;
+}
+
+.input{
+	text-align: center;
+}
+
+.success{
+	text-align: center;
+	color:#28a745;
+}
+
+.faliure{
+	text-align: center;
+	color:#dc3545;
+}
+
+.input-palindromes{
+	max-width: 80%;
+ 	margin-left:auto;
+	margin-right:auto;
+}
+
+.new-palindrome-form {
+  	max-width: 800px;
+}
+
+.new-palindrome-form .full-width-input {
+  	min-height: 3em;
+  	margin: 10px 0;
+  	width: 200%;
+}
+
+.button {
+    background-color: blue; 
+    border: auto;
+    color: white;
+    padding: 9px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}

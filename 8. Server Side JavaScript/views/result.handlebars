@@ -1,0 +1,19 @@
+
+
+		<article class="result">
+  			<h1>The Palindrome Results!</h1>
+  			<p class = input>{{input}}</p>
+  			<p class = success>{{success}}</p>
+  			<p class = faliure>{{faliure}}</p>
+  			<p class="link"><a href="http://localhost:3000">Try another palindrome</a></p>
+  			{{#if hasErrors}}
+  				<ul class="error-list">
+    				{{#each errors}}
+    					<li>
+      						{{this}}
+    					</li>
+    				{{/each}}
+  				</ul>
+  			{{/if}}
+		</article>
+

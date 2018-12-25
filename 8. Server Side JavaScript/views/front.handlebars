@@ -1,0 +1,18 @@
+<article class="input-palindromes">
+  <h1>The Best Palindrome Checker in the World!</h1>
+  <form name="input" action="/result" method="POST" class="new-palindrome-form">
+    <label> Input Palindrome:</label>
+      <input type="text" placeholder="" name="test-to-test"/>
+      <button class="button" type="submit">Submit</button>
+  </form>
+
+  {{#if hasErrors}}
+  <ul class="error-list">
+    {{#each errors}}
+    <li>
+      {{this}}
+    </li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</article>

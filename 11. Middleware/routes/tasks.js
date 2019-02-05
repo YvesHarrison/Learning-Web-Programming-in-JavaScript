@@ -22,25 +22,24 @@ function check_para(title,description,hoursEstimated,completed){
     if (typeof(completed)!=="boolean") throw "Invalid completed type!";
 }
 
-// function static(request){
-// 	let current=request.path;
-// 	if(!record[current])record[current]=0;
+router.use(function (req,res,next){
+	let current=req.path;
+    if(!record[current])record[current]=0;
 
-// 	record[current]++;
-// 	requestnumber++;
-// 	if(record[current]==1)console.log(current,"has been accessed for",record[current],"time");
-// 	else console.log(current,"has been accessed for",record[current],"times");
+	record[current]++;
+	requestnumber++;
 
-// 	next();
-// }
+	if(record[current]==1)console.log(current,"has been accessed for",record[current],"time");
+	else console.log(current,"has been accessed for",record[current],"times");
+	console.log("------------------------------------------------------------")
+	next();
+});
 
 router.get("/tasks",async(req,res)=>{
 	console.log(req.query);
 	try{
-		
-			const postList = await taskData.getAllTasks();
-			res.json(postList);
-		
+		const postList = await taskData.getAllTasks();
+		res.json(postList);
 		//else if(req.query.skip){
 			//console.log("skip");
 		//}
@@ -117,8 +116,8 @@ router.post("/tasks/:id/comments",async(req,res)=>{
 });
 
 router.delete("/tasks/:taskId/:commentId",async(req,res)=>{
-	const taskId=params.taskId;
-	const commentId=params.commentId;
+	const taskId=req.params.taskId;
+	const commentId=req.params.commentId;
 	try{
 		const newDelete=await taskData.deleteComment(taskId,commentId);
 		res.json(newDelete);

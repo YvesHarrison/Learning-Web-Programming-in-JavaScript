@@ -12,7 +12,7 @@ const exportedMethods={
 	async getAllTasks(){
     	const task_collection = await tasks();
     	const get_tasks =  await task_collection.find({}).toArray();
-    	console.log(get_tasks);
+    	//console.log(get_tasks);
     	return get_tasks;
 	},//get 
 	async getTaskById(id){
@@ -45,7 +45,6 @@ const exportedMethods={
 	async updateTask(id,title,description,hoursEstimated,completed){
 		if (id==null||id==undefined||id=="") throw "You must provide an id to update for";
 		
-
 		const task_collection = await tasks();
 
 		const newdata={
@@ -56,7 +55,7 @@ const exportedMethods={
 		}
 
 		const update = await task_collection.updateOne({_id: id}, {$set: newdata});
-			//console.log(newdata);
+	
 		if (update.modifiedCount === 0) throw "Could not update task successfully";
 		else console.log("Update task successfully");
 		
@@ -127,10 +126,12 @@ const exportedMethods={
     			break;
     		}
     	}
+
     	if(erased){
     		const update = await task_collection.updateOne({_id: taskId}, {$set: task});
     		if (update.modifiedCount === 0) throw "Could not delete comment successfully";
         	else console.log("Delete comment successfully");
+        	return await this.getTaskById(taskId);
     	}
     	else throw "Cannot find comment with '$commentId'";
 	}

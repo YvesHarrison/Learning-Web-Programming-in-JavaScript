@@ -9,11 +9,14 @@ function check(num){
 }
 
 const exportedMethods={
-	async getAllTasks(){
+	async getAllTasks(skip,take){
     	const task_collection = await tasks();
-    	const get_tasks =  await task_collection.find({}).toArray();
-    	//console.log(get_tasks);
-    	return get_tasks;
+    	
+    	let get_tasks =  await task_collection.find({}).limit(take).toArray();
+    	get_tasks=get_tasks.splice(skip);
+
+    	if(get_tasks&&get_tasks.length>0) return get_tasks;
+    	else throw "No tasks in database or you skip to many tasks!";
 	},//get 
 	async getTaskById(id){
     	if (id==null||id==undefined||id=="") throw "You must provide an id to search for";

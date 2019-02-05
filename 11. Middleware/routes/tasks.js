@@ -15,11 +15,11 @@ function check_para(title,description,hoursEstimated,completed){
 	if(hoursEstimated==null||hoursEstimated==undefined||hoursEstimated=="") throw "You must provide a hoursEstimated to update for";
     if(completed==null||completed==undefined) throw "You must provide a completed parameter to update for";
     	
-    if (typeof(title) !== "string") throw "Invalid title type!";
-    if (typeof(description) !== "string") throw "Invalid description type!";
-    if (!checknumber(hoursEstimated)) throw "Invalid hoursEstimated type!";
-    if(Number(hoursEstimated)<0) throw "Invalid hoursEstimated value!";
-    if (typeof(completed)!=="boolean") throw "Invalid completed type!";
+    if (typeof(title) !== "string") throw "Invalid title data type!";
+    if (typeof(description) !== "string") throw "Invalid description data type!";
+    if (!checknumber(hoursEstimated)) throw "Invalid hoursEstimated data type!";
+    if(Number(hoursEstimated)<0) throw "Invalid hoursEstimated data value!";
+    if (typeof(completed)!=="boolean") throw "Invalid completed data type!";
 }
 
 router.use(function (req,res,next){
@@ -27,13 +27,13 @@ router.use(function (req,res,next){
 	console.log("Request Body:");
 	console.log(req.body);
 	console.log("------------------------------------------------------------");
-	console.log(req.method,"is making to", req.url);
+	console.log(req.method,"is making to", req.path);
 	console.log("------------------------------------------------------------");
 	next();
 });
 
 router.use(function (req,res,next){
-	let current=req.url;
+	let current=req.path;
     if(!record[current])record[current]=0;
 
 	record[current]++;
@@ -49,16 +49,20 @@ router.use(function (req,res,next){
 });
 
 router.get("/tasks",async(req,res)=>{
-	console.log(req.query);
+	let skip=req.query.skip;
+	let take=req.query.take;
 	try{
-		const postList = await taskData.getAllTasks();
-		res.json(postList);
-		//else if(req.query.skip){
-			//console.log("skip");
-		//}
-		//else if(req.query.take){
-			//console.log("take");
-		//}
+		if(skip){
+			if(!checknumber(skip)||skip<0) throw "Invalid skip data!";
+		}
+		else skip=0;
+		if(take){
+			if(!checknumber(take)||take<0||take>=100) throw "Invalid take data!";
+			take=Math.min(100,Number(take));
+		}
+		else take=20;
+		const postList = await taskData.getAllTasks(skip,take);
+		res.status(200).json(postList);
 	}
 	catch(e){
 		res.status(500).json({ error: e });
@@ -68,7 +72,7 @@ router.get("/tasks",async(req,res)=>{
 router.get("/tasks/:id",async(req,res)=>{
 	try{
 		const postList = await taskData.getTaskById(req.params.id);
-		res.json(postList);
+		res.status(200).json(postList);
 	}
 	catch(e){
 		res.status(500).json({ error: e });
@@ -81,7 +85,7 @@ router.post("/tasks",async(req,res)=>{
 		const { title,description,hoursEstimated,completed}=postData;
 		check_para(title,description,hoursEstimated,completed);
 		const newPost=await taskData.addTask(title,description,hoursEstimated,completed);
-		res.json(newPost);
+		res.status(200).json(newPost);
 	}
 	catch(e){
 		res.status(500).json({ error: e });
@@ -95,7 +99,7 @@ router.put("/tasks/:id",async(req,res)=>{
 		const { title,description,hoursEstimated,completed}=postData;
 		check_para(title,description,hoursEstimated,completed);
 		const newPut=await taskData.updateTask(_id,title,description,hoursEstimated,completed);
-		res.json(newPut);
+		res.status(200).json(newPut);
 	}
 	catch(e){
 		res.status(500).json({ error: e });
@@ -108,7 +112,7 @@ router.patch("/tasks/:id",async(req,res)=>{
 	try{
 		const { title,description,hoursEstimated,completed}=postData;
 		const newPatch=await taskData.renewTask(_id,title,description,hoursEstimated,completed);
-		res.json(newPatch);
+		res.status(200).json(newPatch);
 	}
 	catch(e){
 		res.status(500).json({ error: e });
@@ -121,7 +125,7 @@ router.post("/tasks/:id/comments",async(req,res)=>{
 	try{
 		const {name,comment}=postData;
 		const newPost=await taskData.addComment(_id,name,comment);
-		res.json(newPost);
+		res.status(200).json(newPost);
 	}
 	catch(e){
 		res.status(500).json({ error: e });
@@ -133,7 +137,7 @@ router.delete("/tasks/:taskId/:commentId",async(req,res)=>{
 	const commentId=req.params.commentId;
 	try{
 		const newDelete=await taskData.deleteComment(taskId,commentId);
-		res.json(newDelete);
+		res.status(200).json(newDelete);
 	}
 	catch(e){
 		res.status(500).json({ error: e });

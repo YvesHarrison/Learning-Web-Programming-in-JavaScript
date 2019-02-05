@@ -78,13 +78,11 @@ const exportedMethods={
 
 		if(completed!=null&&completed!=undefined) newdata.completed=completed;
 		
-		//console.log(newdata);
-		
 		const update = await task_collection.updateOne({_id: id}, {$set: newdata});
-		//console.log(update);
+		
         if (update.modifiedCount === 0) throw "Could not renew task successfully";
         else console.log("Renew task successfully");
-        //console.log(id);
+ 
 		return await this.getTaskById(id);
 	},//patch
 	async addComment(taskId,name,comment){
@@ -106,10 +104,12 @@ const exportedMethods={
     	};
 
     	task.comments.push(newComment);
-    	const update = await task_collection.updateOne({_id: id}, {$set: task});
+
+    	const update = await task_collection.updateOne({_id: taskId}, {$set: task});
     	if (update.modifiedCount === 0) throw "Could not add comment successfully";
         else console.log("Add comment successfully");
 
+        return await this.getTaskById(taskId);
 	},
 	async deleteComment(taskId,commentId){
 		if (taskId==null||taskId==undefined||taskId=="") throw "You must provide an taskId for deleting comment";
@@ -128,7 +128,7 @@ const exportedMethods={
     		}
     	}
     	if(erased){
-    		const update = await task_collection.updateOne({_id: id}, {$set: task});
+    		const update = await task_collection.updateOne({_id: taskId}, {$set: task});
     		if (update.modifiedCount === 0) throw "Could not delete comment successfully";
         	else console.log("Delete comment successfully");
     	}

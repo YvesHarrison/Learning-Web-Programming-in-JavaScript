@@ -78,7 +78,7 @@ router.post("/tasks",async(req,res)=>{
 
 router.put("/tasks/:id",async(req,res)=>{
 	const postData=req.body;
-	const _id=params.id;
+	const _id=req.params.id;
 	try{
 		const { title,description,hoursEstimated,completed}=postData;
 		check_para(title,description,hoursEstimated,completed);
@@ -92,7 +92,7 @@ router.put("/tasks/:id",async(req,res)=>{
 
 router.patch("/tasks/:id",async(req,res)=>{
 	const postData=req.body;
-	const _id=params.id;
+	const _id=req.params.id;
 	try{
 		const { title,description,hoursEstimated,completed}=postData;
 		const newPatch=await taskData.renewTask(_id,title,description,hoursEstimated,completed);
@@ -105,10 +105,11 @@ router.patch("/tasks/:id",async(req,res)=>{
 
 router.post("/tasks/:id/comments",async(req,res)=>{
 	const postData=req.body;
-	const _id=params.id;
+	const _id=req.params.id;
 	try{
 		const {name,comment}=postData;
-		await addComment(_id,name,comment);
+		const newPost=await taskData.addComment(_id,name,comment);
+		res.json(newPost);
 	}
 	catch(e){
 		res.status(500).json({ error: e });
@@ -119,7 +120,8 @@ router.delete("/tasks/:taskId/:commentId",async(req,res)=>{
 	const taskId=params.taskId;
 	const commentId=params.commentId;
 	try{
-		await deleteComment(taskId,commentId);
+		const newDelete=await taskData.deleteComment(taskId,commentId);
+		res.json(newDelete);
 	}
 	catch(e){
 		res.status(500).json({ error: e });

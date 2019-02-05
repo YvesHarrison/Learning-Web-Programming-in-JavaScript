@@ -23,15 +23,28 @@ function check_para(title,description,hoursEstimated,completed){
 }
 
 router.use(function (req,res,next){
-	let current=req.path;
+	console.log("---------------Start Middleware 1---------------------------");
+	console.log("Request Body:");
+	console.log(req.body);
+	console.log("------------------------------------------------------------");
+	console.log(req.method,"is making to", req.url);
+	console.log("------------------------------------------------------------");
+	next();
+});
+
+router.use(function (req,res,next){
+	let current=req.url;
     if(!record[current])record[current]=0;
 
 	record[current]++;
 	requestnumber++;
+	console.log("---------------Start Middleware 2---------------------------");
+	if(requestnumber==1) console.log(requestnumber,"request has been made to the server");
+	else console.log(requestnumber,"requests has been made to the server");
 
 	if(record[current]==1)console.log(current,"has been accessed for",record[current],"time");
 	else console.log(current,"has been accessed for",record[current],"times");
-	console.log("------------------------------------------------------------")
+	console.log("-----------------------END------------------------------")
 	next();
 });
 

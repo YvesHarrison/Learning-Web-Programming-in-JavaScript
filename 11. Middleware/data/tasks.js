@@ -44,16 +44,7 @@ const exportedMethods={
 	},//post /tasks
 	async updateTask(id,title,description,hoursEstimated,completed){
 		if (id==null||id==undefined||id=="") throw "You must provide an id to update for";
-		if(title==null||title==undefined||title=="") throw "You must provide a title to update for";
-		if(description==null||description==undefined||description=="") throw "You must provide a description to update for";
-		if(hoursEstimated==null||hoursEstimated==undefined||hoursEstimated=="") throw "You must provide a hoursEstimated to update for";
-    	if(completed==null||completed==undefined) throw "You must provide a completed parameter to update for";
-    	
-    	if (typeof(title) !== "string") throw "Invalid title type!";
-    	if (typeof(description) !== "string") throw "Invalid description type!";
-    	if (!check(hoursEstimated)) throw "Invalid hoursEstimated type!";
-    	if(Number(hoursEstimated)<0) throw "Invalid hoursEstimated value!";
-    	if (typeof(completed)!=="boolean") throw "Invalid completed type!";
+		
 
 		const task_collection = await tasks();
 

@@ -17,7 +17,7 @@ function check_para(title,description,hoursEstimated,completed){
     	
     if (typeof(title) !== "string") throw "Invalid title type!";
     if (typeof(description) !== "string") throw "Invalid description type!";
-    if (!check(hoursEstimated)) throw "Invalid hoursEstimated type!";
+    if (!checknumber(hoursEstimated)) throw "Invalid hoursEstimated type!";
     if(Number(hoursEstimated)<0) throw "Invalid hoursEstimated value!";
     if (typeof(completed)!=="boolean") throw "Invalid completed type!";
 }
@@ -67,6 +67,7 @@ router.post("/tasks",async(req,res)=>{
 	const postData=req.body;
 	try{
 		const { title,description,hoursEstimated,completed}=postData;
+		check_para(title,description,hoursEstimated,completed);
 		const newPost=await taskData.addTask(title,description,hoursEstimated,completed);
 		res.json(newPost);
 	}

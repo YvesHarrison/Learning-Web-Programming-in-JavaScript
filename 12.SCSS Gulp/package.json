@@ -1,0 +1,15 @@
+{
+  "name": "12.scss-gulp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js",
+    "start": "node app.js"
+  },
+  "author": "Xinzhe Li 10434405",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}

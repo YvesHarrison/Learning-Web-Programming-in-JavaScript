@@ -2,7 +2,10 @@
 
 
 ## Dependencies
+Folder 1~10
 `node.js v.8.11.3`
+Folder 11~
+`node.js v.11.8.0`
 
 ## Testing
 For folder 1

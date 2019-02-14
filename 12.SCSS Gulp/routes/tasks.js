@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/tasks",async(req,res)=>{
+router.get("/",async(req,res)=>{
 	try{
-
-		res.status(200).json({info:"good"});
+		res.render("../public/page.html");
 	}
 	catch(e){
 		res.status(500).json({ error: e });

@@ -13,7 +13,7 @@ For folder 1
 ```bash
 node lab1.test.js
 ```
-For folder 2-10
+For folder 2-
 ```bash
 npm install
 npm start

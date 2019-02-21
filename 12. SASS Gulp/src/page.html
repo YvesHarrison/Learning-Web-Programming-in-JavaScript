@@ -5,12 +5,11 @@
     <title>Product Information</title>
     <link rel="stylesheet" href="css/style.min.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/tota11y.min.js"></script>
     <script src="js/main.min.js"></script>
   </head>
   <body>
-    <header>
+    <main>
+      <div class="row h-auto">
       <nav>
         <h1>Products</h1>
         <h2>Product List</h2>
@@ -27,8 +26,6 @@
           <li class="nav-item"><h3><a href="#card-10">Xiaomi 8</a></h3></li>
         </ul>
       </nav>
-    </header>
-    <main>
       <div class="container">
         <div class="row">
           <div class="col-sm">
@@ -224,17 +221,17 @@
             </div>
           </div>
           <div class="col-sm">
-            <div id="card-6 "class="card" style="width: 20rem;">
+            <div id="card-6" class="card" style="width: 20rem;">
               <img class="card-img-top" src="images/macbook.jpg" alt="Card image cap">
               <div class="card-body">
                 <h2 class="card-title">MacBook Air</h2>
                 <p class="card-text"><h3>MacBook Air designed by Apple in California.</h3></p>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong6">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong5">
                   More Info
                 </button>
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModalLong6" tabindex="1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal fade" id="exampleModalLong5" tabindex="1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -251,6 +248,7 @@
                         <p>The advanced security and convenience of Touch ID are now built right into MacBook Air. Simply place your finger on the Touch ID sensor and — just like that — your Mac unlocks. Use your fingerprint to immediately access locked documents, notes, and system settings, without entering yet another password. Online shopping is even easier — select Apple Pay at checkout, and with just one touch you’re done. No need to enter shipping or billing info, and your card details are never shared. With Touch ID, your private information stays private.</p>
 
                         <p>MacBook Air features the Apple T2 Security Chip — second-generation custom Mac silicon designed by Apple to make MacBook Air even more secure. So when you use Touch ID to unlock your Mac, authenticate a document, or pay a merchant online, your information stays safe. With on-the-fly data encryption, all your data stored on the SSD is automatically and fully encrypted. And thanks to the T2 Security Chip, a familiar voice comes to MacBook Air — Hey Siri is always ready to open apps, find documents, play music, and answer your questions.</p>
+
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -344,7 +342,7 @@
               <img class="card-img-top" src="images/surfacepro.jpg" alt="Card image cap">
               <div class="card-body">
                 <h2 class="card-title">Surface Pro</h2>
-                <p class="card-text">Surface Pro designed by Microsoft in Washington.</p>
+                <p class="card-text"><h3>Surface Pro designed by Microsoft in Washington.</h3></p>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong9">
                   More Info
                 </button>
@@ -385,7 +383,7 @@
               <img class="card-img-top" src="images/xiaomi.jpg" alt="Card image cap">
               <div class="card-body">
                 <h2 class="card-title">Xiaomi 8</h2>
-                <p class="card-text">Xiaomi 8 designed by Xiaomi in Beijing.</p>
+                <p class="card-text"><h3>Xiaomi 8 designed by Xiaomi in Beijing.</h3></p>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong10">
                   More Info
                 </button>
@@ -426,6 +424,7 @@
           </div>
         </div>
       </div>
+    </div>
     </main>
   </body>
 </html>

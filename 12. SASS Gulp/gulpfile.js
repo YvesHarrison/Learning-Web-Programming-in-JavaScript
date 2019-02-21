@@ -7,11 +7,13 @@ const concat = require("gulp-concat");
 const miniHtml = require("gulp-htmlmin");
 const rename = require("gulp-rename");
 const reload = browserSync.reload;
+const cleanCSS = require("gulp-clean-css");
 
 gulp.task("sass", async function() {
 	return gulp.src("src/sass/**/*.sass")
 		.pipe(sass())
 		.pipe(rename("style.min.css"))
+		.pipe(cleanCSS())
 		.pipe(gulp.dest("public/css"))
 });
 

@@ -28,6 +28,7 @@ class Berries extends Component{
 		}
 		catch(e){
 			console.log(e);
+			window.location.replace("http://localhost:3000/nomatch");
 		}
 	}
 

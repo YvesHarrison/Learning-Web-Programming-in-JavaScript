@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 class MachineList extends Component{
 	constructor(props) {
@@ -34,7 +35,7 @@ class MachineList extends Component{
 				);
 				ma.push(res.data);
 			}
-			console.log(ma)
+			//console.log(ma)
             this.setState ({
          		data: response.data,
          		datalist: ma,
@@ -59,7 +60,7 @@ class MachineList extends Component{
 	show(data){
 		if(!data) return "No Data!";
 		const list = data.map((o,i)=>{
-			return <li key={i+Number(this.props.match.params.page)*20}><Link to={"/machines/" + o.id}>Machine {i}</Link></li>
+			return <li key={i+Number(this.props.match.params.page)*20}><Link to={"/machines/" + o.id}>Machine {o.move.name}</Link></li>
 		});
 		return (<ol>{list}</ol>);
 	}
@@ -82,6 +83,13 @@ class MachineList extends Component{
 	}
 	
 	render(){
+		if(this.state.data!=undefined){
+			if(this.state.data.results.length==0){
+		 	return (
+         		<Redirect to="/nomatch"/>
+       		)
+     		}
+		}
 		let body = null;
 		let head= (
             <article>

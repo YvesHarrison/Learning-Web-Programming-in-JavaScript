@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 class PokeList extends Component{
 	constructor(props) {
@@ -29,7 +30,7 @@ class PokeList extends Component{
          		pre: pageNum/20,
          		loading: false
       		});
-			//console.log(response.data);
+			//console.log(response.data.results.length);
 		}
 		catch(e){
 			console.log(e);
@@ -82,6 +83,13 @@ class PokeList extends Component{
 	}
 
 	render(){
+		if(this.state.data!=undefined){
+			if(this.state.data.results.length==0){
+		 	return (
+         		<Redirect to="/nomatch"/>
+       		)
+     		}
+		}
 		let body = null;
 		let head= (
             <article>
@@ -98,7 +106,6 @@ class PokeList extends Component{
                 {head} 
                 {this.pagination()}
         		{this.show(this.state.data)}
-        		
 			</div>
 		);
 		return body;

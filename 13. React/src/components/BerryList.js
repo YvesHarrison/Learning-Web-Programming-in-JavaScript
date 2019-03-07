@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 class BerryList extends Component{
 	constructor(props) {
@@ -29,7 +30,7 @@ class BerryList extends Component{
          		pre: pageNum/20,
          		loading: false
       		});
-			console.log(response.data);
+			//console.log(response.data);
 		}
 		catch(e){
 			console.log(e);
@@ -57,7 +58,7 @@ class BerryList extends Component{
 
 		let next = pageNum + 1;
 		let pre = pageNum - 1;
-		console.log(pre,next);
+		//console.log(pre,next);
 		if(pageNum===0){
 			return (<li><Link to={"/berries/page/" + next}>Next</Link></li>);
 		}
@@ -71,6 +72,13 @@ class BerryList extends Component{
 	}
 
 	render(){
+		if(this.state.data!=undefined){
+			if(this.state.data.results.length==0){
+		 	return (
+         		<Redirect to="/nomatch"/>
+       		)
+     		}
+		}
 		let body = null;
 		let head= (
             <article>

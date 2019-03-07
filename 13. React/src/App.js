@@ -9,6 +9,7 @@ import PokeList from './components/PokeList'
 import BerryList from './components/BerryList';
 import MachineList from './components/MachineList';
 import Intro from './components/Intro';
+import Nomatch from './components/Nomatch';
 
 class App extends Component {
   render() {
@@ -27,6 +28,7 @@ class App extends Component {
                 <Route exact path="/pokemon/page/:page" component={PokeList} />
                 <Route exact path="/berries/page/:page" component={BerryList} />
                 <Route exact path="/machines/page/:page" component={MachineList} />
+                <Route exact path="/nomatch"component={Nomatch} />
             </div>
           </Router>
       </div>

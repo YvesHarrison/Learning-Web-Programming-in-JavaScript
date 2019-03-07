@@ -52,10 +52,14 @@ class MachineList extends Component{
         this.getLists();
 	}
 
+	componentDidUpdate() {
+        this.getLists();
+	}
+
 	show(data){
 		if(!data) return "No Data!";
 		const list = data.map((o,i)=>{
-			return <li key={i}><Link to={"/machines/" + o.id}>Machine {i}</Link></li>
+			return <li key={i+Number(this.props.match.params.page)*20}><Link to={"/machines/" + o.id}>Machine {i}</Link></li>
 		});
 		return (<ol>{list}</ol>);
 	}
@@ -92,6 +96,7 @@ class MachineList extends Component{
 		body = (
 			<div className="App-body">
                 {head} 
+                {this.pagination()}
         		{this.show(this.state.datalist)}
 			</div>
 		);

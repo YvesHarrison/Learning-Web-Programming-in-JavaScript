@@ -15,7 +15,6 @@ class PokeList extends Component{
 	async getLists() {
 		try{
 			let pageNum = Number(this.props.match.params.page);
-			console.log("hh",pageNum)
             if (!pageNum) {
                 pageNum = 0;
             }
@@ -30,7 +29,7 @@ class PokeList extends Component{
          		pre: pageNum/20,
          		loading: false
       		});
-			console.log(response.data);
+			//console.log(response.data);
 		}
 		catch(e){
 			console.log(e);
@@ -57,6 +56,7 @@ class PokeList extends Component{
 
 	show(data){
 		if(!data) return "No Data!";
+		//console.log("show",this.props.match.params.page);
 		const list = data.results.map((o,i)=>{
 			return <li key={i}><Link to={"/pokemon/" + o.url.split("/")[6]}>{o.name}</Link></li>
 		});

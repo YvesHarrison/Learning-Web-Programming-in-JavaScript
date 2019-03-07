@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Poke from './components/Poke';
@@ -14,7 +15,10 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-           <Router>
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">Welcome to the Pokemon API</h1>
+        </header>
+          <Router>
             <div>
                 <Route exact path="/" component={Intro} />
                 <Route exact path="/pokemon/:id" component={Poke} />
@@ -24,8 +28,7 @@ class App extends Component {
                 <Route exact path="/berries/page/:page" component={BerryList} />
                 <Route exact path="/machines/page/:page" component={MachineList} />
             </div>
-            </Router>
-        </header>
+          </Router>
       </div>
     );
   }

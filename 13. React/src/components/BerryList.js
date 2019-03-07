@@ -40,12 +40,34 @@ class BerryList extends Component{
         this.getLists();
 	}
 
+	componentDidUpdate() {
+        this.getLists();
+	}
+
 	show(data){
 		if(!data) return "No Data!";
 		const list = data.results.map((o,i)=>{
 			return <li key={i}><Link to={"/berries/" + o.url.split("/")[6]}>{o.name}</Link></li>
 		});
 		return (<ol>{list}</ol>);
+	}
+
+	pagination(){
+		let pageNum = Number(this.props.match.params.page);
+
+		let next = pageNum + 1;
+		let pre = pageNum - 1;
+		console.log(pre,next);
+		if(pageNum===0){
+			return (<li><Link to={"/berries/page/" + next}>Next</Link></li>);
+		}
+		else{
+			return (<ul>
+						<li><Link to={"/berries/page/" + pre}>Previous</Link></li>
+						<li><Link to={"/berries/page/" + next}>Next</Link></li>
+					</ul>
+			);
+		}
 	}
 
 	render(){
@@ -63,6 +85,7 @@ class BerryList extends Component{
 		body = (
 			<div className="App-body">
                 {head} 
+                {this.pagination()}
         		{this.show(this.state.data)}
 			</div>
 		);

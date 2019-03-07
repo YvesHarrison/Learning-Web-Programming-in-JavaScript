@@ -7,6 +7,7 @@ class MachineList extends Component{
       super(props);
       this.state = {
          data: undefined,
+         datalist: undefined,
          pre: 0,
          loading: false
       };
@@ -23,13 +24,24 @@ class MachineList extends Component{
             const response = await axios.get(
                 `https://pokeapi.co/api/v2/machine/?offset=${pageNum}`
 			);
+			console.log(response.data);
+            let ma=[];
 
+			for(let i=0;i<response.data.results.length;++i){
+				//console.log(response.data.results[i].url);
+				let res = await axios.get(
+                	response.data.results[i].url
+				);
+				ma.push(res.data);
+			}
+			console.log(ma)
             this.setState ({
          		data: response.data,
+         		datalist: ma,
          		pre: pageNum/20,
          		loading: false
       		});
-			console.log(response.data);
+			
 		}
 		catch(e){
 			console.log(e);
@@ -42,12 +54,29 @@ class MachineList extends Component{
 
 	show(data){
 		if(!data) return "No Data!";
-		const list = data.results.map((o,i)=>{
-			return <li key={i}><Link to={"/machine/" + o.url.split("/")[6]}>{o.name}</Link></li>
+		const list = data.map((o,i)=>{
+			return <li key={i}><Link to={"/machines/" + o.id}>Machine {i}</Link></li>
 		});
 		return (<ol>{list}</ol>);
 	}
 
+	pagination(){
+		let pageNum = Number(this.props.match.params.page);
+		let next = pageNum + 1;
+		let pre = pageNum - 1;
+		if(pageNum===0){
+
+			return (<li><Link to={"/machines/page/" + next}>Next</Link></li>);
+		}
+		else{
+			return (<ul>
+						<li><Link to={"/machines/page/" + pre}>Previous</Link></li>
+						<li><Link to={"/machines/page/" + next}>Next</Link></li>
+					</ul>
+			);
+		}
+	}
+	
 	render(){
 		let body = null;
 		let head= (
@@ -63,7 +92,7 @@ class MachineList extends Component{
 		body = (
 			<div className="App-body">
                 {head} 
-        		{this.show(this.state.data)}
+        		{this.show(this.state.datalist)}
 			</div>
 		);
 		return body;

@@ -12,9 +12,10 @@ class PokeList extends Component{
       };
 	}
 
-	async getLists(){
+	async getLists() {
 		try{
-			let pageNum = this.props.match.params.page;
+			let pageNum = Number(this.props.match.params.page);
+			console.log("hh",pageNum)
             if (!pageNum) {
                 pageNum = 0;
             }
@@ -40,12 +41,44 @@ class PokeList extends Component{
         this.getLists();
 	}
 
+	// componentWillReceiveProps(nextProps){
+	// 	console.log(nextProps.match.params.page,this.state.pre);
+ //    	if(Number(nextProps.match.params.page)!==this.state.pre){
+ //    		console.log("hhh");
+ //    		this.getLists();
+ //    	}
+ //    	else return;
+	// }
+
+	componentDidUpdate() {
+        this.getLists();
+	}
+	
+
 	show(data){
 		if(!data) return "No Data!";
 		const list = data.results.map((o,i)=>{
 			return <li key={i}><Link to={"/pokemon/" + o.url.split("/")[6]}>{o.name}</Link></li>
 		});
 		return (<ol>{list}</ol>);
+	}
+
+	pagination(){
+		let pageNum = Number(this.props.match.params.page);
+
+		let next = pageNum + 1;
+		let pre = pageNum - 1;
+		if(pageNum===0){
+
+			return (<li><Link to={"/pokemon/page/" + next}>Next</Link></li>);
+		}
+		else{
+			return (<ul>
+						<li><Link to={"/pokemon/page/" + pre}>Previous</Link></li>
+						<li><Link to={"/pokemon/page/" + next}>Next</Link></li>
+					</ul>
+			);
+		}
 	}
 
 	render(){
@@ -63,7 +96,9 @@ class PokeList extends Component{
 		body = (
 			<div className="App-body">
                 {head} 
+                {this.pagination()}
         		{this.show(this.state.data)}
+        		
 			</div>
 		);
 		return body;

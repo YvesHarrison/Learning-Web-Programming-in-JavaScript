@@ -43,7 +43,7 @@ class BerryList extends Component{
 	show(data){
 		if(!data) return "No Data!";
 		const list = data.results.map((o,i)=>{
-			return <li key={i}><Link to={"/berry/" + o.url.split("/")[6]}>{o.name}</Link></li>
+			return <li key={i}><Link to={"/berries/" + o.url.split("/")[6]}>{o.name}</Link></li>
 		});
 		return (<ol>{list}</ol>);
 	}

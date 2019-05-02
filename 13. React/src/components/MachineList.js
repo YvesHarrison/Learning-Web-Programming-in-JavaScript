@@ -25,7 +25,7 @@ class MachineList extends Component{
             const response = await axios.get(
                 `https://pokeapi.co/api/v2/machine/?offset=${pageNum}`
 			);
-			console.log(response.data);
+			//console.log(response.data);
             let ma=[];
 
 			for(let i=0;i<response.data.results.length;++i){

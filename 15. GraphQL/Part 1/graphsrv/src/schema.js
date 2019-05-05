@@ -125,14 +125,12 @@ const RootMutation = new GraphQLObjectType({
             },
             resolve: (parent, args) => {
                 let newTodo;
-                Todos = Todos.map(e=>{
-                    if(e.id == id){
-                        e.completed = true;
-                        newTodo = e;
-                        return e;
+                for(let i = 0; i < Todos.length; ++i){
+                    if(Todos[i].id == args.id){
+                        Todos[i].completed = true;
+                        newTodo = Todos[i];
                     }
-                    return e;
-                })
+                }
                 return newTodo;   
             }
         },

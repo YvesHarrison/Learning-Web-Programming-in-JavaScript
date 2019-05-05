@@ -13,6 +13,8 @@ class ApiService {
         this.userFields = `{id, first_name, last_name, email, department, country, todo_count}`;
         this.todoFields = `{id title completed description user{first_name, last_name}}`;
         this.addtodo = `{title, id, description}`;
+        this.updatetodo = `{title, id, description}`;
+        this.deletetodo = `{title, id, description}`;
     }
 
     /**
@@ -24,8 +26,14 @@ class ApiService {
         let query = `{${resource} ${this.paramsToString(params)} ${fields}}`;
         if(resource === "addTodo"){
             query = `mutation{${resource} ${this.paramsToString(params)} ${fields}}`;
-        } 
-        console.log(query);
+        }
+        else if(resource === "updateTodo"){
+            query = `mutation{${resource} ${this.paramsToString(params)} ${fields}}`;
+        }
+        else if(resource === "deleteTodo"){
+            query = `mutation{${resource} ${this.paramsToString(params)} ${fields}}`;
+        }
+        console.log(resource, query);
         const res = await fetch(this.apiUrl, {
             method: 'POST',
             mode: 'cors',
@@ -70,6 +78,18 @@ class ApiService {
 
     async addTodos(params = {}) {
         const data = await this.getGraphQlData('addTodo', params, this.addtodo);
+        //return todos list
+        return data.todos;
+    }
+
+    async updateTodos(params = {}) {
+        const data = await this.getGraphQlData('updateTodo', params, this.updatetodo);
+        //return todos list
+        return data.todos;
+    }
+
+    async deleteTodos(params = {}) {
+        const data = await this.getGraphQlData('deleteTodo', params, this.deletetodo);
         //return todos list
         return data.todos;
     }

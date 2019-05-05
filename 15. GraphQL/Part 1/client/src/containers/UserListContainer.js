@@ -26,6 +26,8 @@ class UserListContainer extends React.Component {
         return <div className="user">
             <UserForm submitHandler={this.search} />
             <Link className='add__todo-link' to={`/addtodo`}>Add Todo</Link>
+            <Link className='update__todo-link' to={`/updatetodo`}>Update Todo</Link>
+            <Link className='delete__todo-link' to={`/deletetodo`}>Delete Todo</Link>
             <UserList users={this.state.users} />
         </div>;
     }

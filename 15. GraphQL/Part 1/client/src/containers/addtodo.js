@@ -1,5 +1,6 @@
 import React from 'react';
 import ApiService from '../ApiService';
+import { Link } from 'react-router-dom';
 
 class AddtoDo extends React.Component {
     constructor(props) {
@@ -51,15 +52,15 @@ class AddtoDo extends React.Component {
             <form id = "add-todo" onSubmit = {this.submitForm.bind(this)}>
                 <div className = "field">
                     <label>Title</label>
-                    <input type = "text" name = "title" onChange={(e)=>this.setState({title: e.target.value})}/>
+                    <input type = "text" name = "title" onChange = {(e)=>this.setState({title: e.target.value})}/>
                 </div>
                 <div className = "field">
                     <label>Description</label>
-                    <input type = "text" name = "description" onChange={(e)=>this.setState({description: e.target.value})}/>
+                    <input type = "text" name = "description" onChange = {(e)=>this.setState({description: e.target.value})}/>
                 </div>
                 <div className = "field">
                     <label>User</label>
-                    <select name = "user" onChange={(e)=>this.setState({user_id: e.target.value})}>
+                    <select name = "user" onChange = {(e)=>this.setState({user_id: e.target.value})}>
                         <option>Not Selected</option>
                         {this.display()}
                     </select>
@@ -67,6 +68,7 @@ class AddtoDo extends React.Component {
 
                 <button>Add</button>
             </form>
+            <Link className="todo__linkback" to='/'>Back to Users search</Link>
         </div>);
     }
 

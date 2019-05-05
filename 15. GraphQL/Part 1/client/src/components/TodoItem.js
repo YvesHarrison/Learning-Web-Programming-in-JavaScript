@@ -4,7 +4,8 @@ import UserName from './UserName';
 const TodoItem = (props) => {
     const completedClass = props.completed ? 'todo__item--completed' : '';
     return <div className={`todo__item ${completedClass}`}>
-        <p className='todo__title'>{props.title}</p>
+        <p className='todo__title'>Title: {props.title}</p>
+        <p className='todo__title'>Description: {props.description}</p>
         <div className='todo__assignee'>
             <div className = 'todo__ulabel'>Assigned To:</div>
             <UserName {...props.user} />

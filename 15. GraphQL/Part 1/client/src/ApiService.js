@@ -11,7 +11,8 @@ class ApiService {
     constructor() {
         this.apiUrl = 'http://localhost:3001/graphql';
         this.userFields = `{id, first_name, last_name, email, department, country, todo_count}`;
-        this.todoFields = `{id title completed user {first_name, last_name}}`;
+        this.todoFields = `{id title completed description user{first_name, last_name}}`;
+        this.addtodo = `{title, id, description}`;
     }
 
     /**
@@ -20,7 +21,11 @@ class ApiService {
      * @returns {unresolved}
      */
     async getGraphQlData(resource, params, fields) {
-        const query = `{${resource} ${this.paramsToString(params)} ${fields}}`
+        let query = `{${resource} ${this.paramsToString(params)} ${fields}}`;
+        if(resource === "addTodo"){
+            query = `mutation{${resource} ${this.paramsToString(params)} ${fields}}`;
+        } 
+        console.log(query);
         const res = await fetch(this.apiUrl, {
             method: 'POST',
             mode: 'cors',
@@ -30,10 +35,13 @@ class ApiService {
             }),
             body: JSON.stringify({query}),
         });
+        
         if (res.ok) {
             const body = await res.json();
             return body.data;
         } else {
+            const body1 = await res.json();
+            console.log(body1);
             throw new Error(res.status);
         }
     }
@@ -60,6 +68,11 @@ class ApiService {
         return data.todos;
     }
 
+    async addTodos(params = {}) {
+        const data = await this.getGraphQlData('addTodo', params, this.addtodo);
+        //return todos list
+        return data.todos;
+    }
     /**
      * 
      * @param {object} params

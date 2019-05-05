@@ -1,9 +1,11 @@
 import express from 'express';
 import schema from './schema';
 import graphqlHTTP from 'express-graphql';
+import cors from 'cors';
 const port = 3001;
 
 const app = express();
+app.use(cors());
 const dev = process.env.NODE_ENV === 'development';
 
 app.use('/graphql', (req, res, next) => {

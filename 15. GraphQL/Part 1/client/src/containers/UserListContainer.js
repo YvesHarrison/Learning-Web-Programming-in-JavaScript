@@ -2,6 +2,7 @@ import React from 'react';
 import ApiService from '../ApiService';
 import UserList from '../components/UserList';
 import UserForm from '../forms/UserForm';
+import { Link } from 'react-router-dom';
 
 class UserListContainer extends React.Component {
     constructor(props) {
@@ -24,6 +25,7 @@ class UserListContainer extends React.Component {
     render() {
         return <div className="user">
             <UserForm submitHandler={this.search} />
+            <Link className='add__todo-link' to={`/addtodo`}>Add Todo</Link>
             <UserList users={this.state.users} />
         </div>;
     }

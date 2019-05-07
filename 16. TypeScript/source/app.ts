@@ -1,7 +1,7 @@
-const express=require("express");
+import express from "express";
 const app=express();
-const configRoutes=require("./routes");
-const bodyParser = require("body-parser");
+const configRoutes = require("./routes");
+import bodyParser from "body-parser";
 
 app.use(bodyParser.json());
 configRoutes(app);

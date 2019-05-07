@@ -1,15 +1,15 @@
-const bluebird = require("bluebird");
-const Promise = bluebird.Promise;
-const uuidv4 = require("uuid/v4");
+import bluebird from "bluebird";
+//const Promise = bluebird.Promise;
+import uuidv4 from "uuid/v4";
 const collection = require("../config/collection");
 const tasks = collection.tasks;
 
-function check(num){
+function check(num: any){
 	return !isNaN(parseFloat(num))&&isFinite(num);
 }
 
 const exportedMethods={
-	async getAllTasks(skip,take){
+	async getAllTasks(skip: any, take: any){
     	const task_collection = await tasks();
     	
     	let get_tasks =  await task_collection.find({}).limit(take+skip).toArray();
@@ -18,7 +18,7 @@ const exportedMethods={
     	if(get_tasks&&get_tasks.length>0) return get_tasks;
     	else throw "No tasks in database or you skip to many tasks!";
 	},//get 
-	async getTaskById(id){
+	async getTaskById(id: string){
     	if (id==null||id==undefined||id=="") throw "You must provide an id to search for";
     	if (typeof(id) !== 'string') throw "Invalid id";
 
@@ -27,16 +27,16 @@ const exportedMethods={
     	if(result === null) throw "No such task in MongoDB";
     	return result;
 	},// get /tasks/:id
-	async addTask(title,description,hoursEstimated,completed) {
+	async addTask(title: string, description: string, hoursEstimated: any, completed: boolean) {
     	const task_collection = await tasks();
-
+        let comment:any = [];
     	const newPost = {
     		_id: uuidv4(),
       		title: title,
       		description: description,
       		hoursEstimated:hoursEstimated,
       		completed:completed,
-      		comments:[]
+      		comments:comment
     	};
     	
     	const newInsertInformation = await task_collection.insertOne(newPost);
@@ -45,7 +45,7 @@ const exportedMethods={
 
     	return await this.getTaskById(newId);
 	},//post /tasks
-	async updateTask(id,title,description,hoursEstimated,completed){
+	async updateTask(id: string, title: string, description: string, hoursEstimated: any, completed: boolean){
 		if (id==null||id==undefined||id=="") throw "You must provide an id to update for";
 		
 		const task_collection = await tasks();
@@ -64,12 +64,12 @@ const exportedMethods={
 		
 		return await this.getTaskById(id);
 	},//put
-	async renewTask(id,title,description,hoursEstimated,completed){
+	async renewTask(id: string, title: string, description: string, hoursEstimated: any, completed: boolean){
 		if (id==null||id==undefined||id=="") throw "You must provide an id to renew for";
 		if((title&& typeof(title)!=="string")||(description&& typeof(description) !== "string")||(hoursEstimated&&!check(hoursEstimated))||(completed!=null&&completed!=undefined&& typeof(completed)!=="boolean"))throw "Parameters missing or wrong"
 
 		const task_collection = await tasks();
-		const newdata={};
+		const newdata: any={};
 
 		if(title) newdata.title= title;
 		
@@ -87,7 +87,7 @@ const exportedMethods={
  
 		return await this.getTaskById(id);
 	},//patch
-	async addComment(taskId,name,comment){
+	async addComment(taskId: string, name: string, comment: string){
 		if (taskId==null||taskId==undefined||taskId=="") throw "You must provide an taskId for adding comment";
 		if(name==null||name==undefined||name=="") throw "You must provide a name for a comment";
 		if(comment==null||comment==undefined||comment=="") throw "You must provide a comment for a comment";
@@ -113,7 +113,7 @@ const exportedMethods={
 
         return await this.getTaskById(taskId);
 	},
-	async deleteComment(taskId,commentId){
+	async deleteComment(taskId: string, commentId: string){
 		if (taskId==null||taskId==undefined||taskId=="") throw "You must provide an taskId for deleting comment";
 		if (commentId==null||commentId==undefined||commentId=="") throw "You must provide an commentId for deleting comment";
     	

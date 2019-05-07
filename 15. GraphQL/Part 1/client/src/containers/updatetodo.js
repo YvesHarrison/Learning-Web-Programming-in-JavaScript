@@ -57,7 +57,7 @@ class AddtoDo extends React.Component {
                     </select>
                 </div>
 
-                <button>update</button>
+                <button>Update</button>
             </form>
             <Link className="todo__linkback" to='/'>Back to Users search</Link>
         </div>);

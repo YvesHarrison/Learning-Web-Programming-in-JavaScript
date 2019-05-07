@@ -2,10 +2,10 @@
   "name": "16.TypeScript",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "./built/app.js",
   "scripts": {
-    "test": "node app.js",
-    "start": "node app.js"
+    "test": "node ./built/app.js",
+    "start": "node ./built/app.js"
   },
   "author": "Xinzhe Li 10434405",
   "license": "ISC",

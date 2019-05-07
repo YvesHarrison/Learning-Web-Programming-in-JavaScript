@@ -1,15 +1,15 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-let record={};
-let requestnumber=0;
+let record:any = {};
+let requestnumber = 0;
 const data=require("../data/");
 const taskData=data.tasks;
 
-function checknumber(num){
+function checknumber(num: any){
 	return !isNaN(parseFloat(num))&&isFinite(num);
 }
 
-function check_para(title,description,hoursEstimated,completed){
+function check_para(title: any, description: any, hoursEstimated: any, completed: any){
 	if(title==null||title==undefined||title=="") throw "You must provide a title to update for";
 	if(description==null||description==undefined||description=="") throw "You must provide a description to update for";
 	if(hoursEstimated==null||hoursEstimated==undefined||hoursEstimated=="") throw "You must provide a hoursEstimated to update for";
